@@ -4,9 +4,14 @@ class Book:
         self.title = title
         self.author = author
         self.genre = genre
+        pages = input("How many pages: ")
+        if pages:
+            self.pages = pages
+        else:
+            self.pages = None
         
     def print(self):
-        print(f"This is {self.title} by {self.author}")
+        print(f"This is {self.title} by {self.author} and has {self.pages} pages")
 
 if __name__ == "__main__":
     book = Book(
@@ -14,3 +19,4 @@ if __name__ == "__main__":
     )
     print(book)
     book.print() # Book.print(book)
+    book.location = "library"
