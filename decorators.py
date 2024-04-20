@@ -6,9 +6,11 @@ logger = logging.getLogger(__name__)
 
 def first_decorator(func):
     def wrapper():
-        print("falling asleep")
-        func()
-        print("wake up")
+        try:
+            func()
+            print("wake up")
+        except KeyError:
+            pass
     return wrapper
 
 def second_decorator(func):
@@ -37,6 +39,7 @@ def log_decorator(func):
 def long_function():
     time.sleep(5)
     print("Inside the function")
+    raise KeyError
 
 @log_decorator(debug=True)
 def other_function():
