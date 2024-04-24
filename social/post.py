@@ -19,18 +19,36 @@ class Post(Content):
         self.entries.append(self)
         self.id = len(self.entries)
         self.likes = 0
+        self.dislikes = 0
 
     def __str__(self):
         return (f"#{self.id} {self.author} said: {self.text}. "
-            + f"Likes: {self.likes}")
+            + f"Likes: {self.likes} | Dislikes: {self.dislikes}")
 
     @classmethod
-    def like(cls):
+    def show_posts(cls):
+        for entry in sorted(cls.entries, key=lambda post: post.rating(), reverse=True):
+            print(entry)
+
+    @classmethod
+    def find_by_id(cls):
         post_id = input("Enter post id: ")
         for post in cls.entries:
             if post.id == int(post_id):
-                post.likes += 1
-                break
+                return post
+
+    @classmethod
+    def like(cls):
+        post = cls.find_by_id()
+        post.likes += 1
+
+    @classmethod
+    def dislike(cls):
+        post = cls.find_by_id()
+        post.dislikes += 1
+
+    def rating(self):
+        return self.likes - self.dislikes
         
 class Comment(Content):
 

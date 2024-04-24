@@ -8,18 +8,20 @@ if __name__ == "__main__":
             1. Add post
             2. See all posts
             3. Like post
+            4. Dislike post
             0. Exit 
 
             Your Choice: """)
         choice = input(message)
         match choice:
             case "1":
-                new_post = Post()
+                Post()
             case "2":
-                for entry in Post.entries:
-                    print(entry)
+                Post.show_posts()
             case "3":
                 Post.like()
+            case "4":
+                Post.dislike()
             case "0":
                 break
             case _:
