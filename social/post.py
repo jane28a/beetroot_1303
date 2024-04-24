@@ -18,16 +18,20 @@ class Post(Content):
         super().__init__() # Content.__init__()
         self.entries.append(self)
         self.id = len(self.entries)
+        self.likes = 0
 
     def __str__(self):
-        return f"#{self.id} {self.author} said: {self.text}"
+        return (f"#{self.id} {self.author} said: {self.text}. "
+            + f"Likes: {self.likes}")
 
-class Image:
-    pass
-
-class PostWithImage(Post, Image):
-    pass
-
+    @classmethod
+    def like(cls):
+        post_id = input("Enter post id: ")
+        for post in cls.entries:
+            if post.id == int(post_id):
+                post.likes += 1
+                break
+        
 class Comment(Content):
 
     def __init__(self, post_id):
@@ -39,7 +43,6 @@ class Comment(Content):
 
 if __name__ == "__main__":
 
-    post_with_image = PostWithImage()
     comment1 = Comment(1)
     comment2 = Comment(1)
     del comment1.author

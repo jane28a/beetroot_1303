@@ -7,6 +7,7 @@ if __name__ == "__main__":
             Choose the option:
             1. Add post
             2. See all posts
+            3. Like post
             0. Exit 
 
             Your Choice: """)
@@ -17,6 +18,8 @@ if __name__ == "__main__":
             case "2":
                 for entry in Post.entries:
                     print(entry)
+            case "3":
+                Post.like()
             case "0":
                 break
             case _:
