@@ -25,10 +25,16 @@ class Post(Content):
         return (f"#{self.id} {self.author} said: {self.text}. "
             + f"Likes: {self.likes} | Dislikes: {self.dislikes}")
 
+    def __eq__(self, other):
+        return self.rating == other.rating
+
     @classmethod
     def show_posts(cls):
-        for entry in sorted(cls.entries, key=lambda post: post.rating(), reverse=True):
+        for entry in sorted(cls.entries, reverse=True):
             print(entry)
+
+    def get_rating(post):
+        return post.rating
 
     @classmethod
     def find_by_id(cls):
@@ -47,6 +53,7 @@ class Post(Content):
         post = cls.find_by_id()
         post.dislikes += 1
 
+    @property
     def rating(self):
         return self.likes - self.dislikes
         
@@ -61,9 +68,9 @@ class Comment(Content):
 
 if __name__ == "__main__":
 
-    comment1 = Comment(1)
-    comment2 = Comment(1)
-    del comment1.author
-    comment2.note = "some note"
-    print(comment2)
-    print(comment1)
+    post1 = Post() # rating 1
+    post2 = Post() # rating -1
+    Post.like(1)
+    Post.dislike(2)
+    print(post1 == post2)
+
