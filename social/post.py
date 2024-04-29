@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class Content:
     
@@ -27,6 +27,17 @@ class Post(Content):
 
     def __eq__(self, other):
         return self.rating == other.rating
+
+    @staticmethod
+    def week_ago():
+        return datetime.now() - timedelta(days=7)
+
+    @classmethod
+    def show_last_week(cls):
+        for entry in cls.entries:
+            if entry.created_at > self.week_ago():
+                print(entry)
+
 
     @classmethod
     def show_posts(cls):
