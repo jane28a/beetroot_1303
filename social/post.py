@@ -44,9 +44,6 @@ class Post(Content):
         for entry in sorted(cls.entries, reverse=True):
             print(entry)
 
-    def get_rating(post):
-        return post.rating
-
     @classmethod
     def find_by_id(cls):
         post_id = input("Enter post id: ")
