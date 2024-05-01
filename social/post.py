@@ -26,7 +26,10 @@ class Post(Content):
             + f"Likes: {self.likes} | Dislikes: {self.dislikes}")
 
     def __eq__(self, other):
-        return self.rating == other.rating
+        if hasattr(other, "rating"):
+            return self.rating == other.rating
+        else:
+            return NotImplemented 
 
     @staticmethod
     def week_ago():
@@ -78,6 +81,8 @@ if __name__ == "__main__":
 
     post1 = Post() # rating 1
     post2 = Post() # rating -1
+    post1 == post2 # post1.__eq__(post2) => Post.__eq__(post1, post2)
+    post1 == 5 # post1.__eq__(5)
     Post.like(1)
     Post.dislike(2)
     print(post1 == post2)
