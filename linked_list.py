@@ -8,37 +8,6 @@ class Node:
     def __str__(self):
         return f"Node {self.id}: value {self.value}"
 
-class OrderedLinkedList:
-
-    def __init__(self):
-        self.head = None
-
-    def __len__(self):
-        counter = 0
-        current = self.head
-        while current:
-            counter += 1
-            current = current.next
-        return counter
-
-    def add_node(self, value):
-        _id = len(self) + 1
-        if not self.head or self.head.value > value:
-            self.head = Node(_id, value, self.head)
-        else:
-            current = self.head
-            while current.next:
-                if current.next.value > value:
-                    break
-                current = current.next
-            current.next = Node(_id, value, current.next)
-
-    def print_nodes(self):
-        current = self.head
-        while current:
-            print(current)
-            current = current.next
-
 class LinkedList:
 
     def __init__(self):
@@ -74,6 +43,20 @@ class LinkedList:
         while current:
             print(current)
             current = current.next
+
+class OrderedLinkedList(LinkedList):
+
+    def add_node(self, value):
+        _id = len(self) + 1
+        if not self.head or self.head.value > value:
+            self.head = Node(_id, value, self.head)
+        else:
+            current = self.head
+            while current.next:
+                if current.next.value > value:
+                    break
+                current = current.next
+            current.next = Node(_id, value, current.next)
 
 if __name__ == "__main__":
     """
