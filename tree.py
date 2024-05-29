@@ -37,9 +37,35 @@ class BinaryTree:
             else:
                 raise ValueError("Node already exists")
 
+    def find_recursive(self, value, node=Ellipsis):
+        if node is Ellipsis:
+            node = self.root
+        if node is None:
+            return False
+        if node.value < value:
+            return self.find_recursive(value, node.right)
+        elif node.value > value:
+            return self.find_recursive(value, node.left)
+        else:
+            return True
+
+    def find(self, value):
+        current = self.root
+        while current is not None:
+            if current.value > value:
+                current = current.left
+            elif current.value < value:
+                current = current.right
+            else:
+                return True
+        else:
+            return False
+
 if __name__ == "__main__":
     tree = BinaryTree()
     tree.add_node(9)
     tree.add_node(8)
     tree.add_node(7)
     tree.add_node(15)
+    print(tree.find(70))
+    tree.find_recursive(7)
