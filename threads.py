@@ -10,9 +10,12 @@ def main():
         sleep_and_print(i)
 
 def main_with_threads():
-    for i in range(1, 11):
+    threads = list()
+    for i in range(5):
         thread = threading.Thread(target=sleep_and_print, args=(i,))
         thread.start()
+        threads.append(thread)
+    for thread in threads:
         thread.join()
 
 if __name__ == "__main__":
