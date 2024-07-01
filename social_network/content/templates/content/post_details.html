@@ -1,0 +1,11 @@
+<h2>{{ post.title }}</h2>
+<div id="post_content">
+    <p> {{ post.text}} </p>
+</div>
+{% if post.comments.all %}
+    <ul>
+        {% for comment in post.comments.all %}
+            <li> {{ comment.text }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

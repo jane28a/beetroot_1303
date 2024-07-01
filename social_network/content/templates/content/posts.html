@@ -1,0 +1,13 @@
+<ul>
+    {% for post in posts %}
+    <li>{{ post.title }}</li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
