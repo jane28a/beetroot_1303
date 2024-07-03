@@ -1,0 +1,20 @@
+li {
+    color: seashell;
+    background-color: black;
+}
+
+body {
+    background-color: deepskyblue;
+}
+
+.important-text {
+    color: seagreen;
+}
+
+p.important-text {
+    color: darkred;
+}
+
+#second-item {
+    color: orchid;
+}

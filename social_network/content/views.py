@@ -25,3 +25,6 @@ def posts_list(request):
 def post_details(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(request, "content/post_details.html", {"post": post})
+
+def index(request):
+    return render(request, "content/index.html", {})
