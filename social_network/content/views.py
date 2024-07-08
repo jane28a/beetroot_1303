@@ -1,3 +1,4 @@
+from datetime import date
 from django.http import (
     HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotAllowed
 )
@@ -27,4 +28,9 @@ def post_details(request, post_id):
     return render(request, "content/post_details.html", {"post": post})
 
 def index(request):
-    return render(request, "content/index.html", {})
+    context = {
+        "today": date.today().strftime("%Y-%m-%d"),
+        "number": 19,
+        "the_list": [1, 2, 3, 4, 5, 6, 8]
+    }
+    return render(request, "content/index.html", context)

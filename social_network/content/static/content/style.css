@@ -1,20 +1,7 @@
-li {
-    color: seashell;
-    background-color: black;
-}
-
-body {
-    background-color: deepskyblue;
-}
-
-.important-text {
+div.green {
     color: seagreen;
 }
 
-p.important-text {
-    color: darkred;
-}
-
-#second-item {
-    color: orchid;
+div.blue {
+    color: deepskyblue;
 }
