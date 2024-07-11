@@ -2,12 +2,25 @@ from datetime import date
 from django.http import (
     HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotAllowed
 )
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from content.forms import PostForm
+from content.forms import PostForm, SignUpForm
 from content.models import Post
 
+def signup(request):
+    if request.method == "GET":
+        return render(request, "content/signup.html", {"form": SignUpForm()})
+    elif request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            ... # save new user instance with User.objects.create_user()
+            # redirect to login page
+    else:
+        return HttpResponseNotAllowed(["GET", "POST"])
+
+@login_required
 def posts_list(request):
     if request.method == "GET":
         # return HttpResponse(Post.objects.all())
@@ -23,6 +36,7 @@ def posts_list(request):
     else:
         return HttpResponseNotAllowed(["GET", "POST"])
 
+@login_required
 def post_details(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     return render(request, "content/post_details.html", {"post": post})
