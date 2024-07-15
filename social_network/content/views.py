@@ -1,6 +1,7 @@
 from datetime import date
 from django.http import (
-    HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotAllowed
+    HttpResponse, HttpResponseRedirect, HttpResponseBadRequest, HttpResponseNotAllowed,
+    JsonResponse
 )
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
@@ -19,6 +20,16 @@ def signup(request):
             # redirect to login page
     else:
         return HttpResponseNotAllowed(["GET", "POST"])
+
+def api_posts(request):
+    result = list()
+    for post in Post.objects.all():
+        result.append({
+            "id": post.id,
+            "title": post.title,
+            "text": post.text
+        })
+    return JsonResponse(result, safe=False)
 
 @login_required
 def posts_list(request):
