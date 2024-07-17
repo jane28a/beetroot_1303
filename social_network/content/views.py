@@ -4,6 +4,7 @@ from django.http import (
     JsonResponse
 )
 from django.contrib.auth.decorators import login_required
+from asgiref.sync import sync_to_async
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
@@ -21,14 +22,17 @@ def signup(request):
     else:
         return HttpResponseNotAllowed(["GET", "POST"])
 
-def api_posts(request):
+def serialize(post):
+    return {
+        "id": post.id,
+        "title": post.title,
+        "text": post.text
+    }
+
+async def api_posts(request):
     result = list()
-    for post in Post.objects.all():
-        result.append({
-            "id": post.id,
-            "title": post.title,
-            "text": post.text
-        })
+    async for post in Post.objects.all():
+        result.append(serialize(post))
     return JsonResponse(result, safe=False)
 
 @login_required
@@ -47,9 +51,9 @@ def posts_list(request):
     else:
         return HttpResponseNotAllowed(["GET", "POST"])
 
-@login_required
-def post_details(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+async def post_details(request, post_id):
+    post = Post.objects.aget(id=post_id)
+    #post = get_object_or_404(Post, pk=post_id)
     return render(request, "content/post_details.html", {"post": post})
 
 def index(request):
