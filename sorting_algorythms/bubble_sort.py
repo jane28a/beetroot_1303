@@ -2,7 +2,9 @@ def bubble_sort(sequence):
     for counter in range(len(sequence)):
         for index in range(len(sequence) - counter - 1):
             if sequence[index] > sequence[index+1]:
+                # Swap elements if they are in the wrong order
                 sequence[index], sequence[index+1] = sequence[index+1], sequence[index]
+        # Print the sequence after each pass to visualize the sorting process
         print(sequence)
     return sequence
 
